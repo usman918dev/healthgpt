@@ -17,17 +17,13 @@ const Chat = ({ sessionId = "default-session" }) => {
   // Load conversation history when component mounts
   useEffect(() => {
     const fetchHistory = async () => {
-      try {
-        const history = await getHistory(sessionId);
-        setMessages(
-          history.map((msg) => ({
-            text: msg.message,
-            isUser: msg.role === "user",
-          }))
-        );
-      } catch (err) {
-        console.error("Error loading history:", err);
-      }
+      const history = await getHistory(sessionId);
+      setMessages(
+        history.map((msg) => ({
+          text: msg.message,
+          isUser: msg.role === "user",
+        }))
+      );
     };
     fetchHistory();
   }, [sessionId]);
@@ -39,9 +35,10 @@ const Chat = ({ sessionId = "default-session" }) => {
 
     try {
       const response = await sendMessage(sessionId, message);
+      // ✅ always use message + role
       setMessages((prev) => [
         ...prev,
-        { text: response.reply, isUser: false },
+        { text: response.message, isUser: response.role === "user" },
       ]);
     } catch (error) {
       console.error("Error sending message:", error);
@@ -66,7 +63,12 @@ const Chat = ({ sessionId = "default-session" }) => {
   };
 
   return (
-    <div className="flex flex-col container mx-auto h-[90vh] bg-gradient-to-b from-gray-50 to-gray-100">
+    <div className="flex flex-col container mx-auto h-[90vh] max-w-2xl bg-gradient-to-b from-blue-50 to-gray-100 border rounded-2xl shadow-md overflow-hidden">
+      {/* Header */}
+      <header className="bg-blue-600 text-white text-center py-3 shadow">
+        <h1 className="text-lg font-semibold">HealthGPT Assistant</h1>
+        <p className="text-xs text-blue-100">Your AI health companion</p>
+      </header>
 
       {/* Messages */}
       <main className="flex-1 overflow-y-auto p-4 space-y-4">
@@ -80,7 +82,7 @@ const Chat = ({ sessionId = "default-session" }) => {
 
         {loading && (
           <div className="flex justify-start">
-            <div className="bg-white rounded-xl shadow p-3">
+            <div className="bg-white rounded-xl shadow px-3 py-2">
               <div className="flex space-x-1">
                 <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" />
                 <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce [animation-delay:0.15s]" />
@@ -96,7 +98,8 @@ const Chat = ({ sessionId = "default-session" }) => {
       <footer className="border-t bg-white">
         <ChatInput onSendMessage={handleSendMessage} disabled={loading} />
         <p className="text-center p-2 text-xs text-gray-500">
-          ⚠️ This chatbot is not a medical professional. Always consult a doctor.
+          ⚠️ This chatbot is not a medical professional. Always consult a
+          doctor.
         </p>
       </footer>
     </div>
