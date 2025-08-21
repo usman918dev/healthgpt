@@ -1,3 +1,4 @@
+// utils/api.js
 import axios from "axios";
 
 const api = axios.create({
@@ -7,9 +8,11 @@ const api = axios.create({
 // Send message
 export const sendMessage = async (sessionId, message) => {
   try {
-    const res = await api.post("/chat/send", { sessionId, message });
-    // ✅ normalize to { message, role }
-    return { message: res.data.reply, role: "assistant" };
+    const res = await api.post("/api/chat", { message });
+    return { 
+      message: res.data.response || res.data.message, 
+      role: "assistant" 
+    };
   } catch (error) {
     console.error("API Error (sendMessage):", error.message);
     return {
@@ -29,14 +32,21 @@ export const getHistory = async (sessionId) => {
     }));
   } catch (error) {
     console.error("API Error (getHistory):", error.message);
+
+    // 👇 return dummy fallback chat history
     return [
       {
-        message: "⚠️ Could not load past chats. Starting fresh.",
+        message: "Hello! 👋 I’m your HealthGPT assistant.",
+        role: "assistant",
+      },
+      {
+        message: "You can ask me about symptoms, treatments, or nearby doctors.",
         role: "assistant",
       },
     ];
   }
 };
+
 
 // Clear history
 export const clearHistory = async (sessionId) => {

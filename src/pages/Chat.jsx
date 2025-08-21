@@ -1,12 +1,17 @@
+// Chat.js
 import React, { useState, useRef, useEffect } from "react";
 import { sendMessage, getHistory, clearHistory } from "../utils/api";
 import ChatBubble from "../components/ChatBubble";
 import ChatInput from "../components/ChatInput";
+import { getSessionId } from "../utils/session"; // ✅ always use same session
 
-const Chat = ({ sessionId = "default-session" }) => {
+const Chat = () => {
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
   const messagesEndRef = useRef(null);
+
+  const sessionId = getSessionId(); // ✅ generate once and reuse
+  console.log(sessionId);
 
   // Scroll to bottom on new messages
   const scrollToBottom = () => {
@@ -34,8 +39,7 @@ const Chat = ({ sessionId = "default-session" }) => {
     setLoading(true);
 
     try {
-      const response = await sendMessage(sessionId, message);
-      // ✅ always use message + role
+      const response = await sendMessage(sessionId, message); // ✅ pass sessionId
       setMessages((prev) => [
         ...prev,
         { text: response.message, isUser: response.role === "user" },
@@ -57,6 +61,7 @@ const Chat = ({ sessionId = "default-session" }) => {
     try {
       await clearHistory(sessionId);
       setMessages([]);
+      localStorage.removeItem("chatSessionId");
     } catch (err) {
       console.error("Error clearing history:", err);
     }
@@ -65,9 +70,17 @@ const Chat = ({ sessionId = "default-session" }) => {
   return (
     <div className="flex flex-col container mx-auto h-[90vh] max-w-2xl bg-gradient-to-b from-blue-50 to-gray-100 border rounded-2xl shadow-md overflow-hidden">
       {/* Header */}
-      <header className="bg-blue-600 text-white text-center py-3 shadow">
-        <h1 className="text-lg font-semibold">HealthGPT Assistant</h1>
-        <p className="text-xs text-blue-100">Your AI health companion</p>
+      <header className="bg-blue-600 text-white text-center py-3 shadow flex justify-between items-center px-4">
+        <div>
+          <h1 className="text-lg font-semibold">HealthGPT Assistant</h1>
+          <p className="text-xs text-blue-100">Your AI health companion</p>
+        </div>
+        <button
+          onClick={handleClearChat}
+          className="text-xs bg-white text-blue-600 px-2 py-1 rounded shadow"
+        >
+          Clear
+        </button>
       </header>
 
       {/* Messages */}
