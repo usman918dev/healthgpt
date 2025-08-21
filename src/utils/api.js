@@ -2,7 +2,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "healthgpt-production-4dfd.up.railway.app", // change to your backend URL
+  baseURL: "https://healthgpt-production-4dfd.up.railway.app", // change to your backend URL
 });
 
 // Send message
