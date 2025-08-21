@@ -2,7 +2,6 @@ const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const axios = require('axios');
-app.use(cors({ origin: '*' }));
 dotenv.config();
 
 const app = express();
@@ -10,6 +9,7 @@ const port = process.env.PORT || 5000;
 
 // Middleware
 // app.use(cors());
+app.use(cors({ origin: '*' }));
 app.use(express.json());
 
 // AI API endpoint
