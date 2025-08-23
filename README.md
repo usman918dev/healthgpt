@@ -1,70 +1,84 @@
-# Getting Started with Create React App
+# HealthGPT - AI-Powered Healthcare Assistant
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Live Demo
+Visit the live application at: [HealthGPT](https://healthgpt-pro.vercel.app/)
 
-## Available Scripts
+## Overview
+HealthGPT is an interactive chatbot application that leverages AI to provide health-related information and assistance. Built with React for the frontend and Express.js for the backend, it integrates with the AIML API to provide intelligent responses to health queries.
 
-In the project directory, you can run:
+## Features
+- Real-time chat interface
+- AI-powered responses using AIML API
+- Modern and responsive UI design
+- Secure API key handling through backend integration
 
-### `npm start`
+## Tech Stack
+- Frontend: React.js
+- Backend: Express.js
+- API: AIML API
+- Styling: CSS Modules
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Getting Started
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Prerequisites
+- Node.js (v14 or higher)
+- npm (v6 or higher)
 
-### `npm test`
+### Installation
+1. Clone the repository:
+```bash
+git clone [repository-url]
+cd healthgpt
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+2. Install dependencies:
+```bash
+# Install frontend dependencies
+npm install
 
-### `npm run build`
+# Install backend dependencies
+cd server
+npm install
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+3. Configure environment variables:
+Create a `.env` file in the server directory:
+```
+API_KEY=your_aiml_api_key_here
+PORT=5000
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Running the Application
+1. Start the backend server:
+```bash
+cd server
+node server.js
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2. In a new terminal, start the frontend:
+```bash
+npm start
+```
 
-### `npm run eject`
+The application will be available at `http://localhost:3000`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Project Structure
+```
+healthgpt/
+├── src/                 # Frontend source files
+│   ├── components/      # React components
+│   └── utils/          # Utility functions
+├── server/             # Backend server files
+│   └── server.js       # Express server configuration
+└── README.md           # Project documentation
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Contributing
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## License
+This project is licensed under the MIT License - see the
